@@ -11,6 +11,9 @@
     "moduleResolution": "node",
     "jsx": "react",
     "rootDir": "src",
+    "paths": {
+      "@/*": ["*"]
+    },
     "baseUrl": "src",
     "allowJs": true,
     "resolveJsonModule": true
