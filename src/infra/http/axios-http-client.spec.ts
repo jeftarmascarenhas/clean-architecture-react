@@ -5,11 +5,17 @@ import faker from 'faker'
 jest.mock('axios')
 const mockedAxios = axios as jest.Mocked<typeof axios>
 
+// Factory return other class instance
+const makeSut = (): AxiosHttpClient => {
+  const sut = new AxiosHttpClient()
+  return sut
+}
+
 // 1. Os parametros que receber tem que chamar o axios com para corretos
 describe('AxiosHttpClient', () => {
   test('Should call axios if correct url', async () => {
     const url = faker.internet.url()
-    const sut = new AxiosHttpClient()
+    const sut = makeSut()
     await sut.post({
       url
     })
