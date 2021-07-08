@@ -13,12 +13,12 @@ const makeSut = (): AxiosHttpClient => {
 
 // 1. Os parametros que receber tem que chamar o axios com para corretos
 describe('AxiosHttpClient', () => {
-  test('Should call axios if correct url', async () => {
+  test('Should call axios if correct url and verb', async () => {
     const url = faker.internet.url()
     const sut = makeSut()
     await sut.post({
       url
     })
-    expect(mockedAxios).toHaveBeenCalledWith(url)
+    expect(mockedAxios.post).toHaveBeenCalledWith(url)
   })
 })
