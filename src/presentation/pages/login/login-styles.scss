@@ -55,24 +55,6 @@ button {
       font-size: 20px;
       text-transform: uppercase;
     }
-    .inputWrap {
-      display: flex;
-      margin-top: 16px;
-      position: relative;
-      input {
-        flex-grow: 1;
-      }
-      .status {
-        position: absolute;
-        background-color: rgb(196, 45, 45);
-        width: 18px;
-        height: 18px;
-        border-radius: 50%;
-        right: 2%;
-        top: 50%;
-        transform: translateY(-50%);
-      }
-    }
     .submit {
       margin-top: 32px;
     }
@@ -86,18 +68,6 @@ button {
         text-decoration: underline;
       }
     }
-    .errorWrap {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      .spinner,
-      .error {
-        margin-top: 30px;
-      }
-
-      .error {
-        color: $primaryLight;
-      }
-    }
+    
   }
 }
