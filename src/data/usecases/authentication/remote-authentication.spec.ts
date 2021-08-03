@@ -4,17 +4,17 @@ import { RemoteAuthentication } from './remote-authentication'
 import { InvalidCredentialsError, UnexpectedError } from '@/domain/errors'
 import { AccountModel } from '@/domain/models'
 import { mockAccountModel, mockAuthentication } from '@/domain/test'
-import { AuthenticationParams } from '@/domain/usercases/authentication'
+import { Authentication } from '@/domain/usercases/authentication'
 import faker from 'faker'
 
 type SutTypes = {
-  httpPostClientSpy: HttpPostClientSpy<AuthenticationParams, AccountModel>
+  httpPostClientSpy: HttpPostClientSpy<Authentication.Params, AccountModel>
   sut: RemoteAuthentication
 }
 // Make Sut is a Factory
 const makeSut = (url: string = faker.internet.url()): SutTypes => {
   const httpPostClientSpy = new HttpPostClientSpy<
-  AuthenticationParams,
+  Authentication.Params,
   AccountModel
   >()
   const sut = new RemoteAuthentication(url, httpPostClientSpy) // sut means 'The System Under Test'
