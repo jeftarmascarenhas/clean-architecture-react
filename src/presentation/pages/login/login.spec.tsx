@@ -1,5 +1,5 @@
 import React from 'react'
-import { render, RenderResult } from '@testing-library/react'
+import { cleanup, render, RenderResult } from '@testing-library/react'
 import Login from './login'
 
 type SutTypes = {
@@ -14,6 +14,7 @@ const makeSut = (): SutTypes => {
 }
 
 describe('Login Component', () => {
+  afterEach(cleanup)
   test('should start with initial state', () => {
     const { sut } = makeSut()
     const errorWrap = sut.getByTestId('error-wrap')
