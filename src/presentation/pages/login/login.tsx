@@ -27,12 +27,6 @@ const Login: React.FC<Props> = ({
       passwordError: validation.validate('password', state.password)
     })
   }, [state.email, state.password])
-  // useEffect(() => {
-  //   setState({
-  //     ...state,
-
-  //   })
-  // }, [state.password])
 
   return (
     <div className={Styles.login}>
@@ -42,7 +36,7 @@ const Login: React.FC<Props> = ({
         <h2>Login</h2>
         <Input type='email' name='email' placeholder='Email' />
         <Input type='password' name='password' placeholder='Password' />
-        <button data-testid="submit" disabled type='submit' className={Styles.submit}>
+        <button data-testid="submit" disabled={!!state.emailError || !!state.passwordError} type='submit' className={Styles.submit}>
           Entrar
         </button>
         <span className={Styles.link}>Criar conta</span>
