@@ -1,8 +1,12 @@
 const path = require('path')
+const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
+const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
 
+const isDevelopment = process.env.NODE_ENV !== 'production'
+
 module.exports = {
-  mode: 'development',
+  mode: isDevelopment ? 'development' : 'production',
   entry: './src/main/index.tsx',
   output: {
     path: path.join(__dirname, 'public/js'),
@@ -42,14 +46,21 @@ module.exports = {
     ]
   },
   devServer: {
-    contentBase: './public',
+    contentBase: path.join(__dirname, 'public'),
     writeToDisk: true,
     historyApiFallback: true,
+    hot: true,
     port: 8080
   },
   externals: {
     react: 'React',
     'react-dom': 'ReactDOM'
   },
-  plugins: [new CleanWebpackPlugin()]
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'public', 'index.html')
+    }),
+    isDevelopment && new ReactRefreshWebpackPlugin(),
+    new CleanWebpackPlugin()
+  ].filter(Boolean)
 }
