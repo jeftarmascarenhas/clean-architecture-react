@@ -28,4 +28,9 @@ describe('MinLengthValidation', () => {
     const error = sut.validate(faker.random.alphaNumeric(3))
     expect(error).toEqual(errorMessage)
   })
+  test('should return null if value is valid', () => {
+    const { sut } = makeSut(3)
+    const error = sut.validate(faker.random.alphaNumeric(3))
+    expect(error).toBeFalsy()
+  })
 })
