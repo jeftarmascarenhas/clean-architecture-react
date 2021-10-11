@@ -2,8 +2,14 @@ import React from 'react'
 import 'jest-localstorage-mock'
 import { Router } from 'react-router-dom'
 import { createMemoryHistory } from 'history'
-import { cleanup, render, RenderResult, fireEvent, waitFor } from '@testing-library/react'
-import Login from './login'
+import {
+  cleanup,
+  render,
+  RenderResult,
+  fireEvent,
+  waitFor
+} from '@testing-library/react'
+import { Login } from '@/presentation/pages'
 import { ValidationStub, AuthenticationSpy } from '@/presentation/test'
 import faker from 'faker'
 import { InvalidCredentialsError } from '@/domain/errors'
@@ -35,24 +41,38 @@ const makeSut = (params?: SutParams): SutTypes => {
   }
 }
 
-const populateEmailField = (sut: RenderResult, email = faker.internet.email()): void => {
+const populateEmailField = (
+  sut: RenderResult,
+  email = faker.internet.email()
+): void => {
   const emailInput = sut.getByTestId('email')
   fireEvent.input(emailInput, { target: { value: email } })
 }
 
-const populatePasswordField = (sut: RenderResult, password = faker.internet.password()): void => {
+const populatePasswordField = (
+  sut: RenderResult,
+  password = faker.internet.password()
+): void => {
   const passwordInput = sut.getByTestId('password')
   fireEvent.input(passwordInput, { target: { value: password } })
 }
 
-const simulateValidSubmit = (sut: RenderResult, email = faker.internet.email(), password = faker.internet.password()): void => {
+const simulateValidSubmit = (
+  sut: RenderResult,
+  email = faker.internet.email(),
+  password = faker.internet.password()
+): void => {
   populateEmailField(sut, email)
   populatePasswordField(sut, password)
   const submitButton = sut.getByTestId('submit')
   fireEvent.click(submitButton)
 }
 
-const testStatusForField = (sut: RenderResult, fieldName: string, validationError?: string): void => {
+const testStatusForField = (
+  sut: RenderResult,
+  fieldName: string,
+  validationError?: string
+): void => {
   const fieldStatus = sut.getByTestId(`${fieldName}-status`)
   expect(fieldStatus.title).toBe(validationError || 'Tudo certo!')
   expect(fieldStatus.textContent).toBe(validationError ? '🔴' : '🟢')
@@ -141,7 +161,9 @@ describe('Login Component', () => {
   test('should present error if Authentication fails', async () => {
     const { sut, authenticationSpy } = makeSut()
     const error = new InvalidCredentialsError()
-    jest.spyOn(authenticationSpy, 'auth').mockReturnValueOnce(Promise.reject(error))
+    jest
+      .spyOn(authenticationSpy, 'auth')
+      .mockReturnValueOnce(Promise.reject(error))
     simulateValidSubmit(sut)
     const errorWrap = sut.getByTestId('error-wrap')
     await waitFor(() => errorWrap)
@@ -153,7 +175,10 @@ describe('Login Component', () => {
     const { sut, authenticationSpy } = makeSut()
     simulateValidSubmit(sut)
     await waitFor(() => 'form-login')
-    expect(localStorage.setItem).toHaveBeenCalledWith('accessToken', authenticationSpy.account.accessToken)
+    expect(localStorage.setItem).toHaveBeenCalledWith(
+      'accessToken',
+      authenticationSpy.account.accessToken
+    )
     expect(history.length).toBe(1)
     expect(history.location.pathname).toBe('/')
   })

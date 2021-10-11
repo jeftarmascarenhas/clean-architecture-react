@@ -9,7 +9,7 @@ import {
 } from '@/presentation/components'
 import Context from '@/presentation/contexts/form/form-context'
 import { Validation } from '@/presentation/protocols/validation'
-import { Authentication } from '@/domain/usercases'
+import { Authentication } from '@/domain/usecases'
 
 type Props = {
   validation: Validation
