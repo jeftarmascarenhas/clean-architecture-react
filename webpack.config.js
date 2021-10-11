@@ -1,4 +1,5 @@
 const path = require('path')
+const { DefinePlugin } = require('webpack')
 const ReactRefreshWebpackPlugin = require('@pmmmwh/react-refresh-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const { CleanWebpackPlugin } = require('clean-webpack-plugin')
@@ -57,10 +58,13 @@ module.exports = {
     'react-dom': 'ReactDOM'
   },
   plugins: [
+    new CleanWebpackPlugin(),
     new HtmlWebpackPlugin({
       template: path.resolve(__dirname, 'public', 'index.html')
     }),
     isDevelopment && new ReactRefreshWebpackPlugin(),
-    new CleanWebpackPlugin()
+    new DefinePlugin({
+      'process.env.API_URL': 'https://fordevs.herokuapp.com/api'
+    })
   ].filter(Boolean)
 }
